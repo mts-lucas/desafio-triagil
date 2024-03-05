@@ -17,7 +17,8 @@ class PokemonSerializer(serializers.ModelSerializer):
 
 class TeamSerializer(serializers.ModelSerializer):
 
-    
+    pokemons = PokemonSerializer()
+
     class Meta:
         model = Team
         fields = ['owner', 'pokemons']
