@@ -45,6 +45,7 @@ class TeamsListView(APIView):
                 pkm_list.append(pkm_instance)
 
             team = Team.objects.create(owner=data["user"])
+            team.pokemons.add(*pkm_list)
             serializer = TeamSerializer(team)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
