@@ -31,7 +31,7 @@ class TeamsListView(APIView):
         pkm_not_found, pkms = pokerequests.do_requests(data['pokemons'])
 
         if pkm_not_found:
-            return Response({"errors": pkm_not_found}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"errors": pkm_not_found}, status=status.HTTP_404_NOT_FOUND)
         
         else:
             pkm_list = []
