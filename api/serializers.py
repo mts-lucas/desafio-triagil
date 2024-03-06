@@ -29,3 +29,8 @@ class TeamSerializer(serializers.ModelSerializer):
             "pokemons": {"read_only": True},
         }
 
+class TeamPostSerializer(serializers.Serializer):
+
+    user = serializers.CharField(max_length=32)
+    pokemons = serializers.ListField(child=serializers.CharField(max_length=32))
+

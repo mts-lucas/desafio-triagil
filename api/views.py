@@ -1,5 +1,6 @@
 from django.http import Http404
-from rest_framework import generics, status
+from drf_spectacular.utils import extend_schema
+from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -16,7 +17,7 @@ class TeamsListView(APIView):
 
     pagination_class = PageNumberPagination
 
-        
+    @extend_schema(responses={200: TeamSerializer(many=True)},)
     def get(self, request, format=None):
 
         teams = Team.objects.all().order_by("id")
@@ -26,6 +27,9 @@ class TeamsListView(APIView):
         serializer = TeamSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
     
+
+    @extend_schema(request=TeamPostSerializer, 
+                   responses={201: TeamSerializer},)
     def post(self, request, format=None):
         data = request.data.copy()
         pkm_not_found, pkms = pokerequests.do_requests(data['pokemons'])
@@ -58,6 +62,7 @@ class TeamDetailView(APIView):
         except Team.DoesNotExist:
             raise Http404
 
+    @extend_schema(responses={200: TeamSerializer},)
     def get(self, request, pk, format=None):
         team = self.get_object(pk)
         serializer = TeamSerializer(team)

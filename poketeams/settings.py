@@ -43,11 +43,13 @@ INSTALLED_APPS = [
     'corsheaders',
     'api.apps.ApiConfig',
     'core.apps.CoreConfig',
+    'drf_spectacular',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 MIDDLEWARE = [
@@ -148,3 +150,11 @@ CORS_ALLOW_HEADERS = [
 'x-csrftoken',
 'x-requested-with',
 ]
+
+# Configuração do Swagger
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'PokeTeams API - Desafio Triagil',
+    'DESCRIPTION': 'API dedicada ao desafio tecnico da Triagil',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
