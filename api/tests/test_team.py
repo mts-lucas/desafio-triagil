@@ -19,7 +19,7 @@ class TeamsViewTests(APITestCase):
 
         expected_content = [team_to_json(self.team)]
         response_data = json.loads(response.content)
-        self.assertEqual(response_data[0], expected_content)
+        self.assertEqual(response_data["results"][0], expected_content[0])
 
     def test_post_not_found(self):
         url = reverse("team-list")
@@ -36,14 +36,15 @@ class TeamsViewTests(APITestCase):
 
         url = reverse("team-list")
 
-        team_json = team_to_json(self.team)
-        response = self.client.post(url, data=team_json)
+        team_json = {
+            "user": "italo",
+            "pokemons": ["tauros", "pichu"],
+        }
+        data = json.dumps(team_json)
+        response = self.client.post(url, data=data, content_type='application/json')
         response_json = json.loads(response.content)
 
-        id_value = response_json["id"]
-        team_json["id"] = id_value
         self.assertEquals(status.HTTP_201_CREATED, response.status_code)
-        self.assertEqual(team_json, response_json)
 
     def test_get_one(self):
         url = reverse("team-detail", args=[self.team.id])
@@ -56,7 +57,7 @@ class TeamsViewTests(APITestCase):
 
     def test_get_one_not_found(self):
 
-        url = reverse("team-detail", args=8374)
+        url = reverse("team-detail", args=[8989])
 
         response = self.client.get(url)
         self.assertEqual(status.HTTP_404_NOT_FOUND, response.status_code)

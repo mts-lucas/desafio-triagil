@@ -1,27 +1,63 @@
+# import factory
+# from factory.django import DjangoModelFactory
+# from faker import Faker
+
+# from core.models import Team, Pokemon
+
+# faker = Faker('pt_BR')
+# factory.Faker('pt_BR')
+
+# class PokemonFactory(DjangoModelFactory):
+#     name = "chhrhu"
+#     dex_id = 25656
+#     weight = 60
+#     height = 4
+
+#     class Meta:
+#         model = Pokemon
+
+# class TeamFactory(DjangoModelFactory):
+#     owner = factory.Faker("name")
+#     pokemons = PokemonFactory()
+
+#     class Meta:
+#         model = Team
+
 import factory
 from factory.django import DjangoModelFactory
 from faker import Faker
 
-from core.models import Team, Pokemon
+from core.models import Pokemon, Team
 
 faker = Faker('pt_BR')
 factory.Faker('pt_BR')
 
 class PokemonFactory(DjangoModelFactory):
-    name = "pikachu"
-    dex_id = 25
-    weight = 60
-    height = 4
+    name = 'fwefwf'
+    dex_id = 2323
+    weight = factory.Faker('random_number', digits=2)
+    height = factory.Faker('random_number', digits=1)
 
     class Meta:
         model = Pokemon
 
 class TeamFactory(DjangoModelFactory):
-    owner = factory.Faker("name")
-    pokemons = PokemonFactory()
+    owner = factory.Faker('name')
+
+    @factory.post_generation
+    def pokemons(self, create, extracted, **kwargs):
+        if not create:
+            # Atribuição direta, portanto, apenas retornamos
+            return
+
+        if extracted:
+            # Se uma lista de pokémons foi fornecida, adicionamos ao time
+            for pokemon in extracted:
+                self.pokemons.add(pokemon)
 
     class Meta:
         model = Team
+
 
 def pokemon_to_json(pokemon):
 
@@ -34,10 +70,7 @@ def pokemon_to_json(pokemon):
     return json_content
 
 def team_to_json(team):
-
-    json_content = {
-        "id": team.id,
-        "owner": team.name,
-        "pokemons": pokemon_to_json(team.pokemons),
+    return {
+        "owner": team.owner,
+        "pokemons": [pokemon.id for pokemon in team.pokemons.all()]
     }
-    return json_content

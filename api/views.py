@@ -19,7 +19,7 @@ class TeamsListView(APIView):
         
     def get(self, request, format=None):
 
-        teams = Team.objects.all()
+        teams = Team.objects.all().order_by("id")
         
         paginator = self.pagination_class()
         result_page = paginator.paginate_queryset(teams, request)
