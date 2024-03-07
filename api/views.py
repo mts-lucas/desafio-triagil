@@ -15,6 +15,10 @@ from .utils import pokerequests
 
 class TeamsListView(APIView):
 
+    """
+    Lista todos os times ou inserir um Time novo na base de dados.
+    """
+
     pagination_class = PageNumberPagination
 
     @extend_schema(responses={200: TeamSerializer(many=True)},)
@@ -55,6 +59,9 @@ class TeamsListView(APIView):
 
 class TeamDetailView(APIView):
 
+    """
+    Exibir um Time especifico atraves de um ide unico
+    """
 
     def get_object(self, pk):
         try:
