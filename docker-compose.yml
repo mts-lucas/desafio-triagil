@@ -1,0 +1,71 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: triagil_db
+    image: postgres:15.3
+    restart: always
+    user: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./:/app/
+    env_file:
+      - ./.env.docker
+    ports:
+      - 5431:5432
+    networks:
+      - network
+
+  pgadmin:
+    container_name: triagil_pgadmin
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+      - ./:/app/
+    env_file:
+      - ./.env.docker
+    ports:
+      - 5051:80
+    networks:
+      - network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: triagil_app
+    hostname: app
+    stdin_open: true
+    expose:
+      - '8000'
+    volumes:
+      - ./:/app/
+    env_file:
+      - ./.env.docker
+    depends_on:
+      - db
+    networks:
+      - network
+    ports:
+      - '8000:8000'
+
+  nginx:
+    container_name: triagil_nginx
+    image: nginx
+    hostname: nginx
+    ports:
+      - '80:80'
+    volumes:
+      - ./docker/config/nginx/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+    networks:
+      - network
+
+volumes:
+  pgdata:
+  pgadmin:
+
+networks:
+  network:
