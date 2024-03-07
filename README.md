@@ -186,6 +186,147 @@ http://127.0.0.1:8000/
 
 ```
 
+### Exemplos
+
+Para visualização de documentação, existem 3 endpoints dedicados a isso:
+
+- `http://127.0.0.1:8000/poketeams/api/schema` retorna um arquivo json que pode ser usado no postman ou insomnia
+- `http://127.0.0.1:8000/poketeams/api/schema/swagger/` abre a interface da documentação swagger
+- `http://127.0.0.1:8000/poketeams/api/redoc/` abre a interface do redoc
+
+#### Output(GET)
+`http://127.0.0.1:8000/poketeams/api/teams/{team_id}`
+
+```json
+{
+  "id": 1,
+  "owner": "ash",
+  "pokemons": [
+    {
+      "id": 172,
+      "name": "pichu",
+      "weight": 20,
+      "height": 3
+    },
+    {
+      "id": 4,
+      "name": "charmander",
+      "weight": 85,
+      "height": 6
+    }
+  ]
+}
+```
+
+#### Output(GET) 
+
+`http://127.0.0.1:8000/poketeams/api/teams/`
+
+```json
+{
+  "count": 32,
+  "next": "http://127.0.0.1:8000/poketeams/api/teams/?format=json&page=2",
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "owner": "ash",
+      "pokemons": [
+        {
+          "id": 172,
+          "name": "pichu",
+          "weight": 20,
+          "height": 3
+        },
+        {
+          "id": 4,
+          "name": "charmander",
+          "weight": 85,
+          "height": 6
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "owner": "misty",
+      "pokemons": [      ]
+    },
+    {
+      "id": 3,
+      "owner": "brock",
+      "pokemons": [
+        {
+          "id": 172,
+          "name": "pichu",
+          "weight": 20,
+          "height": 3
+        },
+        {
+          "id": 4,
+          "name": "charmander",
+          "weight": 85,
+          "height": 6
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "owner": "may",
+      "pokemons": [
+        {
+          "id": 172,
+          "name": "pichu",
+          "weight": 20,
+          "height": 3
+        },
+        {
+          "id": 4,
+          "name": "charmander",
+          "weight": 85,
+          "height": 6
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "owner": "dawn",
+      "pokemons": [
+        {
+          "id": 172,
+          "name": "pichu",
+          "weight": 20,
+          "height": 3
+        },
+        {
+          "id": 4,
+          "name": "charmander",
+          "weight": 85,
+          "height": 6
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Input(POST)
+
+`http://127.0.0.1:8000/poketeams/api/teams/`
+
+```json
+{
+  "user": "brendon",
+  "team": [
+    "blastoise",
+    "pikachu",
+    "charizard",
+    "venusaur",
+    "lapras",
+    "dragonite"
+  ]
+}
+```
+
 <h2>Licença</h2>
 
 <p>Este projeto está licenciado sob a Licença MIT - consulte o arquivo LICENSE para obter mais detalhes.</p>

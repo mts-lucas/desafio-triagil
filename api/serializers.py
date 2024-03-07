@@ -23,7 +23,7 @@ class TeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Team
-        fields = ['owner', 'pokemons']
+        fields = ['id', 'owner', 'pokemons']
         extra_kwargs = {
             "owner": {"read_only": True},
             "pokemons": {"read_only": True},
