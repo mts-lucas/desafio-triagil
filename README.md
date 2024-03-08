@@ -26,8 +26,17 @@ Repositório dedicado ao desafio técnico para admissão como estagiario backend
 <pre>python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
 </pre>
 
-<li>Crie um arquivo .env na raiz do diretório do projeto, copie o conteudo de .env.example e adicione sua SECRET_KEY:</li>
-<pre>SECRET_KEY='your-secret-key-here'</pre>
+<li>Crie um arquivo .env na raiz do diretório do projeto, copie o conteudo de .env.example e adicione sua SECRET_KEY, logo apos crie o bando de dados e preencha os demais campos</li>
+<pre>
+SECRET_KEY='your-secret-key-here'
+#True or False
+DEBUG=True
+POSTGRES_DB=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+DB_HOST=
+DB_PORT=5432
+  </pre>
 
 <li>Faça as migrações do banco de dados:</li>
 <pre>python manage.py migrate</pre>
@@ -95,33 +104,34 @@ Irá ser gerado um uma chave onde você poderá copiar e colar  como valor da SE
 6. Crie um arquivo chamado .env na raiz do projeto e cole o conteúdo do .env.example:
 ```console
 
-SECRET_KEY=
-POSTGRES_DB= ''
-POSTGRES_USER= ''
-POSTGRES_PASSWORD= ''
-DB_HOST= ''
-DB_PORT=
+SECRET_KEY='your-secret-key-here'
+#True or False
+DEBUG=True
+POSTGRES_DB=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+DB_HOST=
+DB_PORT=5432
 
 ```
 Certifique-se de preencher corretamente os valores para cada variável de ambiente de acordo com as configurações do seu ambiente.
 
 7. Crie um arquivo chamado .env.docker na raiz do projeto e cole o conteúdo do .env.docker.example:
 ```console
-DEBUG=
-SECRET_KEY=
-ALLOWED_HOSTS=
-
+#True or False
+DEBUG=True
+SECRET_KEY='your-secret-key-here'
 
 POSTGRES_DB=
 POSTGRES_USER=
 POSTGRES_PASSWORD=
 DB_HOST=
-DB_PORT=
+DB_PORT=5432
 
 PGADMIN_DEFAULT_EMAIL=
 PGADMIN_DEFAULT_PASSWORD=
+#True or False
 PGADMIN_CONFIG_SERVER_MODE=
-
 ```
 
   Da mesma forma, preencha as variáveis de ambiente com os valores corretos para o ambiente em que você está executando o projeto.

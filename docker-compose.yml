@@ -12,7 +12,7 @@ services:
     env_file:
       - ./.env.docker
     ports:
-      - 5431:5432
+      - 5432:5432
     networks:
       - network
 
